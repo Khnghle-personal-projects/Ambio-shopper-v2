@@ -1,34 +1,27 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-const dummy = [
-  {
-    id: 1,
-    name: 'Mario',
-    pic:
-      'https://images-na.ssl-images-amazon.com/images/I/61aYlctXc8L._SL1500_.jpg',
-    price: '$13.99'
-  },
-  {
-    id: 2,
-    name: 'Link',
-    pic:
-      'https://images-na.ssl-images-amazon.com/images/I/61JXjf8ioTL._SL1500_.jpg',
-    price: '$13.99'
+class DisplayInfo extends React.Component {
+  render() {
+    const {products} = this.props
+    return (
+      <div>
+        {products.map(curr => (
+          <div key={curr.id}>
+            <div>{curr.name}</div>
+            <img src={curr.pic} className="image-display" />
+            <div>{curr.price}</div>
+          </div>
+        ))}
+      </div>
+    )
   }
-]
-
-const DisplayInfo = () => {
-  return (
-    <div>
-      {dummy.map(curr => (
-        <div key={curr.id}>
-          <div>{curr.name}</div>
-          <img src={curr.pic} className="image-display" />
-          <div>{curr.price}</div>
-        </div>
-      ))}
-    </div>
-  )
 }
 
-export default DisplayInfo
+const mapState = state => {
+  return {
+    products: state.product
+  }
+}
+
+export default connect(mapState, null)(DisplayInfo)
