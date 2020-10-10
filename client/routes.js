@@ -4,6 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {cartDisplay, Login, Signup, UserHome} from './components'
 import {me} from './store'
+import {fetchProducts} from './store/products'
 
 /**
  * COMPONENT
@@ -11,6 +12,7 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.getProducts()
   }
 
   render() {
@@ -50,7 +52,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    getProducts: () => dispatch(fetchProducts())
   }
 }
 
