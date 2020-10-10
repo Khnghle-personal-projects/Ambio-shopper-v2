@@ -5,9 +5,9 @@ class DisplayInfo extends React.Component {
   render() {
     const {products} = this.props
     return (
-      <div>
+      <div className="item-container">
         {products.map(curr => (
-          <div key={curr.id}>
+          <div key={curr.id} className="single-item">
             <div>{curr.name}</div>
             <img src={curr.pic} className="image-display" />
             <div>{curr.price}</div>
