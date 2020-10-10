@@ -15,8 +15,7 @@ async function seed() {
 
   const products = await Promise.all(
     amibos.map(curr => {
-      console.log(curr)
-      Product.create({curr})
+      return Product.create(curr)
     })
   )
 
