@@ -1,7 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product} = require('../server/db/models')
+const amibos = require('./seed.products')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +13,14 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const products = await Promise.all(
+    amibos.map(curr => {
+      console.log(curr)
+      Product.create({curr})
+    })
+  )
+
+  console.log(`seeded ${users.length} users and ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
