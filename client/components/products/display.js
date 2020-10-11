@@ -27,7 +27,7 @@ class DisplayInfo extends React.Component {
     })
 
     if (filteredArr.length) {
-      this.setState({products: filteredArr})
+      this.setState({products: filteredArr, page: 1})
     } else {
       // eslint-disable-next-line no-alert
       alert('No match was found!')
