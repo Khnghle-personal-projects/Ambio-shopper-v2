@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import AddToCartForm from './addToCart'
+import SearchBarForm from './searchBar'
 
 class DisplayInfo extends React.Component {
   constructor() {
@@ -17,17 +19,18 @@ class DisplayInfo extends React.Component {
 
     //The amount of page-numbers
     const numPages = Math.ceil(products.length / 8)
+    const startPage = this.state.page - 1 > 0 ? this.state.page - 1 : 1
+    const endPage =
+      this.state.page + 3 <= numPages ? this.state.page + 3 : numPages
 
     const pageArray = []
-    for (let i = 1; i <= numPages; i++) {
+    for (let i = startPage; i <= endPage; i++) {
       pageArray.push(i)
     }
 
     return (
       <div id="all-products-view">
-        <form className="search-bar">
-          <input />
-        </form>
+        <SearchBarForm />
 
         <div className="item-container">
           {focus.map(curr => (
@@ -35,26 +38,13 @@ class DisplayInfo extends React.Component {
               <img src={curr.pic} className="image-display" />
               <div className="item-name">{curr.name}</div>
               <div>Price: ${curr.price}</div>
-
-              <form className="qty-form">
-                <select>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="6">7</option>
-                  <option value="6">8</option>
-                  <option value="6">9</option>
-                </select>
-                <button type="button">Add to cart</button>
-              </form>
+              <AddToCartForm item={curr} />
             </div>
           ))}
         </div>
 
         <div className="page-numbers">
+          {this.state.page - 1 > 1 ? `${1}...` : ''}
           {pageArray.map(curr => {
             return (
               <button
@@ -65,7 +55,8 @@ class DisplayInfo extends React.Component {
                 {curr}
               </button>
             )
-          })}
+          })}{' '}
+          {this.state.page + 3 < numPages ? `...${numPages}` : ''}
         </div>
       </div>
     )
