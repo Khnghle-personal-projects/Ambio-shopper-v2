@@ -11,9 +11,11 @@ class DisplayInfo extends React.Component {
   render() {
     const {products} = this.props
 
+    //Resizing the amount of ambibos to view
     const start = (this.state.page - 1) * 8
     const focus = products.slice(start, start + 8)
 
+    //The amount of page-numbers
     const numPages = Math.ceil(products.length / 8)
 
     const pageArray = []
@@ -23,6 +25,10 @@ class DisplayInfo extends React.Component {
 
     return (
       <div id="all-products-view">
+        <form className="search-bar">
+          <input />
+        </form>
+
         <div className="item-container">
           {focus.map(curr => (
             <div key={curr.id} className="single-item">
@@ -30,7 +36,7 @@ class DisplayInfo extends React.Component {
               <div className="item-name">{curr.name}</div>
               <div>Price: ${curr.price}</div>
 
-              <form>
+              <form className="qty-form">
                 <select>
                   <option value="1">1</option>
                   <option value="2">2</option>
