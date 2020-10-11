@@ -7,21 +7,58 @@ class DisplayInfo extends React.Component {
   constructor() {
     super()
     this.state = {
-      page: 1
+      page: 1,
+      searchString: '',
+      products: []
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.submitSearch = this.submitSearch.bind(this)
+  }
+
+  submitSearch(evt) {
+    evt.preventDefault()
+    const filteredArr = this.props.products.filter(curr => {
+      //Returns names that matches searchStrings are subString of
+      return (
+        curr.name
+          .toLowerCase()
+          .indexOf(this.state.searchString.toLowerCase()) >= 0
+      )
+    })
+
+    if (filteredArr.length) {
+      this.setState({products: filteredArr})
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('No match was found!')
     }
   }
-  render() {
-    const {products} = this.props
 
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  componentDidUpdate() {
+    if (!this.state.products.length) {
+      this.setState({products: this.props.products})
+    }
+  }
+
+  render() {
     //Resizing the amount of ambibos to view
     const start = (this.state.page - 1) * 8
-    const focus = products.slice(start, start + 8)
+    const focus = this.state.products.slice(start, start + 8)
 
     //The amount of page-numbers
-    const numPages = Math.ceil(products.length / 8)
-    const startPage = this.state.page - 1 > 0 ? this.state.page - 1 : 1
+    const numPages = Math.ceil(this.state.products.length / 8)
+    const startPage =
+      Number(this.state.page) - 1 > 0 ? Number(this.state.page) - 1 : 1
     const endPage =
-      this.state.page + 3 <= numPages ? this.state.page + 3 : numPages
+      Number(this.state.page) + 2 < numPages
+        ? Number(this.state.page) + 2
+        : Number(numPages)
 
     const pageArray = []
     for (let i = startPage; i <= endPage; i++) {
@@ -30,7 +67,10 @@ class DisplayInfo extends React.Component {
 
     return (
       <div id="all-products-view">
-        <SearchBarForm />
+        <SearchBarForm
+          change={this.handleChange}
+          submitSearch={this.submitSearch}
+        />
 
         <div className="item-container">
           {focus.map(curr => (
@@ -44,19 +84,51 @@ class DisplayInfo extends React.Component {
         </div>
 
         <div className="page-numbers">
-          {this.state.page - 1 > 1 ? `${1}...` : ''}
+          {Number(this.state.page) - 1 > 1 ? (
+            <span>
+              <button
+                type="button"
+                onClick={this.handleChange}
+                name="page"
+                value="1"
+              >
+                1{' '}
+              </button>
+              ...
+            </span>
+          ) : (
+            ''
+          )}
           {pageArray.map(curr => {
             return (
               <button
                 type="button"
                 key={curr}
-                onClick={() => this.setState({page: curr})}
+                onClick={this.handleChange}
+                name="page"
+                value={curr}
               >
                 {curr}
               </button>
             )
           })}{' '}
-          {this.state.page + 3 < numPages ? `...${numPages}` : ''}
+          {Number(this.state.page) + 2 < numPages ? (
+            <span>
+              {' '}
+              ...
+              <button
+                type="button"
+                onClick={this.handleChange}
+                name="page"
+                value={numPages}
+              >
+                {' '}
+                {numPages}{' '}
+              </button>
+            </span>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     )

@@ -54,6 +54,12 @@ form div {
   transform: translate(-50%);
 }
 
+.search-bar {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 /* button {
   border-radius: 9em;
   color: black;
