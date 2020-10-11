@@ -40,7 +40,7 @@ class DisplayInfo extends React.Component {
     })
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (!this.state.products.length) {
       this.setState({products: this.props.products})
     }
@@ -49,10 +49,15 @@ class DisplayInfo extends React.Component {
   render() {
     //Resizing the amount of ambibos to view
     const start = (this.state.page - 1) * 8
-    const focus = this.state.products.slice(start, start + 8)
+    const focus = this.state.products.length
+      ? this.state.products.slice(start, start + 8)
+      : this.props.products.slice(start, start + 8)
 
     //The amount of page-numbers
-    const numPages = Math.ceil(this.state.products.length / 8)
+    const numPages = this.state.products.length
+      ? Math.ceil(this.state.products.length / 8)
+      : Math.ceil(this.props.products.length / 8)
+
     const startPage =
       Number(this.state.page) - 1 > 0 ? Number(this.state.page) - 1 : 1
     const endPage =
