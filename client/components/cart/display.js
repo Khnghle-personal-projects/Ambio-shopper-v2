@@ -1,9 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import CartItem from './cartItems'
+import BillingInfo from './billingInfo'
+import PaymentInfo from './paymentInfo'
 
 class CartInfo extends React.Component {
   render() {
-    return <div> Hello World </div>
+    return (
+      <div>
+        <BillingInfo />
+        <PaymentInfo />
+        <CartItem />
+      </div>
+    )
   }
 }
 
