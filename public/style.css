@@ -49,17 +49,36 @@ form div {
 .page-numbers {
   position: fixed;
   bottom: 0;
-  /*centering my page numbers */
-  left: 50%;
-  transform: translate(-50%);
 }
 
 .search-bar {
   position: absolute;
+}
+
+.center {
   left: 50%;
   transform: translate(-50%);
 }
 
+h1 {
+  display: absolute;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-display {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cart-item img {
+  width: 10em;
+  height: 10em;
+}
 /* button {
   border-radius: 9em;
   color: black;

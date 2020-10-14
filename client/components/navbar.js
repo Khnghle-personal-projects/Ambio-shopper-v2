@@ -7,7 +7,11 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1>Amibo-Shopper</h1>
-    <nav>
+    <nav className="navbar">
+      <span>
+        <Link to="/products">Product</Link>
+        <Link to="/cart">Cart</Link>
+      </span>
       {isLoggedIn ? (
         <span>
           {/* The navbar will show these links after you log in */}
@@ -23,10 +27,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </span>
       )}
-      <span>
-        <Link to="/products">Product</Link>
-        <Link to="/cart">Cart</Link>
-      </span>
     </nav>
     <hr />
   </div>

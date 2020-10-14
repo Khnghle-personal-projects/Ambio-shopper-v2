@@ -5,12 +5,17 @@ import BillingInfo from './billingInfo'
 import PaymentInfo from './paymentInfo'
 
 class CartInfo extends React.Component {
+  componentDidMount() {
+    console.log(this.props.cart)
+  }
   render() {
     return (
-      <div>
-        <BillingInfo />
-        <PaymentInfo />
-        <CartItem />
+      <div className="cart-display">
+        <div>
+          <BillingInfo />
+          <PaymentInfo />
+        </div>
+        <CartItem cartItems={this.props.cart} />
       </div>
     )
   }
@@ -18,7 +23,7 @@ class CartInfo extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.product
+    cart: state.cart
   }
 }
 

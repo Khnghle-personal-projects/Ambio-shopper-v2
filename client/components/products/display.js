@@ -88,7 +88,7 @@ class DisplayInfo extends React.Component {
           ))}
         </div>
 
-        <div className="page-numbers">
+        <div className="page-numbers center">
           {Number(this.state.page) - 1 > 1 ? (
             <span>
               <button
