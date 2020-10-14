@@ -9,22 +9,24 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <h1>Amibo-Shopper</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <span>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-        </div>
+        </span>
       ) : (
-        <div>
+        <span>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <Link to="/products">Product</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
+        </span>
       )}
+      <span>
+        <Link to="/products">Product</Link>
+        <Link to="/cart">Cart</Link>
+      </span>
     </nav>
     <hr />
   </div>
