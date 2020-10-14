@@ -1,7 +1,6 @@
 import React from 'react'
 
 function BillingInfo(props) {
-  console.log('this is props ', props)
   return (
     <form>
       <h3>Billing Information</h3>
