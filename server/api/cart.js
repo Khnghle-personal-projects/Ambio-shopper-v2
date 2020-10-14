@@ -21,6 +21,7 @@ router.get('/:userId', async (req, res, next) => {
         userId: Number(req.params.userId),
         status: 'created'
       },
+      attributes: ['id', 'status'],
       include: [
         {
           model: Product,
