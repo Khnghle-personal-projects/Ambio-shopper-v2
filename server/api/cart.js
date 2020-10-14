@@ -4,7 +4,7 @@ module.exports = router
 
 //Security Middleware
 const userOnly = (req, res, next) => {
-  if (!req.user.id || req.user.id !== req.params.userId) {
+  if (!req.user || req.user.id !== Number(req.params.userId)) {
     const err = new Error('Unauthorized User')
     err.status = 401
     return next(err)
