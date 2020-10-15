@@ -5,7 +5,31 @@ import BillingInfo from './billingInfo'
 import PaymentInfo from './paymentInfo'
 
 class CartInfo extends React.Component {
-  componentDidMount() {}
+  constructor() {
+    super()
+    this.state = {
+      sum: 0,
+      tax: 0,
+      total: 0
+    }
+  }
+
+  componentDidUpdate() {
+    const cart = this.props.cart
+    let sum = 0
+    cart.forEach(product => {
+      sum += product.price * product.cart.qty
+    })
+
+    if (this.state.sum !== sum.toFixed(2)) {
+      this.setState({
+        sum: sum.toFixed(2),
+        tax: (sum * 0.0625).toFixed(2),
+        total: (sum * 1.0625).toFixed(2)
+      })
+    }
+  }
+
   render() {
     return (
       <div className="cart-display">
@@ -21,6 +45,10 @@ class CartInfo extends React.Component {
             userId={this.props.userId}
           />
         ))}
+
+        <div>Cost: {this.state.sum}</div>
+        <div>Tax: {this.state.tax}</div>
+        <div>Total: {this.state.total}</div>
       </div>
     )
   }
