@@ -1,17 +1,26 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {deleteItemThunk} from '../../store/cart'
 import AddToCart from '../products/addToCart'
 
 function CartItem(props) {
   const {item, userId, orderId} = props
   const [qty, setQty] = useState(item.cart.qty)
+  const dispatch = useDispatch()
 
   function changeQty(newQty) {
     setQty(newQty)
   }
+
   return (
     <div>
       <div key={item.id} className="cart-item single-item">
-        <button type="button">x</button>
+        <button
+          type="button"
+          onClick={() => dispatch(deleteItemThunk(userId, orderId, item.id))}
+        >
+          x
+        </button>
 
         <img src={item.pic} />
         <div className="item-name">{item.name}</div>

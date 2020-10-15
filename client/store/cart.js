@@ -5,12 +5,14 @@ import axios from 'axios'
  */
 const GET_CART = 'GET_CART'
 const ADD_ITEM = 'ADD_ITEM'
+const DELETE_ITEM = 'DELETE_ITEM'
 /**
  * ACTION CREATORS
  */
 
 const getCart = cart => ({type: GET_CART, cart})
 const addItem = () => ({type: ADD_ITEM})
+const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 
 /**
  * THUNK CREATORS
@@ -37,6 +39,17 @@ export const updateCart = (userId, orderId, productId, qty) => {
   }
 }
 
+export const deleteItemThunk = (userId, orderId, productId) => {
+  return async function(dispatch) {
+    try {
+      await axios.delete(`api/cart/${userId}/${orderId}/${productId}`)
+      dispatch(deleteItem(productId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 //INITIAL STATE
 const initialState = []
 
@@ -47,6 +60,8 @@ export default function(state = initialState, action) {
       return action.cart
     case ADD_ITEM:
       return [...state]
+    case DELETE_ITEM:
+      return state.filter(item => item.id !== action.itemId)
     default:
       return state
   }
