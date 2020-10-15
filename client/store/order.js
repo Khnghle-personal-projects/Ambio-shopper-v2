@@ -8,7 +8,7 @@ const GET_ORDER = 'GET_ORDER'
  * ACTION CREATORS
  */
 
-const getOrder = order => ({type: GET_ORDER, order})
+export const getOrder = order => ({type: GET_ORDER, order})
 
 /**
  * THUNK CREATORS

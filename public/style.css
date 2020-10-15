@@ -79,6 +79,12 @@ h1 {
   width: 10em;
   height: 10em;
 }
+
+.selected {
+  color: black;
+  font-weight: bold;
+}
+
 /* button {
   border-radius: 9em;
   color: black;

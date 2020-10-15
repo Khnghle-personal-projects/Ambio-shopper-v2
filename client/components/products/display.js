@@ -83,7 +83,12 @@ class DisplayInfo extends React.Component {
               <img src={curr.pic} className="image-display" />
               <div className="item-name">{curr.name}</div>
               <div>Price: ${curr.price}</div>
-              <AddToCartForm item={curr} />
+              <AddToCartForm
+                itemId={curr.id}
+                orderId={this.props.orderId}
+                userId={this.props.userId}
+                text="Add to Cart"
+              />
             </div>
           ))}
         </div>
@@ -142,7 +147,9 @@ class DisplayInfo extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.product
+    products: state.product,
+    orderId: state.order.id,
+    userId: state.user.id
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {updateCart} from '../../store/cart'
 
 class AddToCartForm extends React.Component {
   constructor() {
@@ -17,10 +18,12 @@ class AddToCartForm extends React.Component {
 
   onSubmit(evt) {
     evt.preventDefault()
-    console.log(
-      `You are trying to buy ${this.state.qty} of ${this.props.item.name}`
-    )
+    const {itemId, orderId, userId} = this.props
+    const qty = this.state.qty
+    this.props.addItem(userId, orderId, itemId, qty)
+    if (this.props.changeQty) this.props.changeQty(this.state.qty)
   }
+
   render() {
     return (
       <form className="add-to-cart-form" onSubmit={this.onSubmit}>
@@ -35,10 +38,17 @@ class AddToCartForm extends React.Component {
           <option value="8">8</option>
           <option value="9">9</option>
         </select>
-        <button type="submit">Add to cart</button>
+        <button type="submit">{this.props.text}</button>
       </form>
     )
   }
 }
 
-export default connect(null, null)(AddToCartForm)
+function mapDispatch(dispatch) {
+  return {
+    addItem: (userId, orderId, productId, qty) =>
+      dispatch(updateCart(userId, orderId, productId, qty))
+  }
+}
+
+export default connect(null, mapDispatch)(AddToCartForm)

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   AllProductDisplay,
@@ -18,6 +18,13 @@ import {fetchCart} from './store/cart'
  * COMPONENT
  */
 class Routes extends Component {
+  constructor() {
+    super()
+    this.state = {
+      isUserAuthenticated: false
+    }
+  }
+
   componentDidMount() {
     this.props.loadInitialData()
     this.props.getProducts()
@@ -28,14 +35,19 @@ class Routes extends Component {
       this.props.getOrder(this.props.userId)
       this.props.getCart(this.props.userId)
     }
+    if (this.props.isLoggedIn && !this.state.isUserAuthenticated) {
+      this.setState({isUserAuthenticated: true})
+    }
   }
 
   render() {
     const {isLoggedIn} = this.props
-
+    console.log(this.state.isUserAuthenticated)
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={AllProductDisplay} />
+
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/products" component={AllProductDisplay} />
@@ -48,7 +60,6 @@ class Routes extends Component {
           </Switch>
         )}
 
-        {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
     )
