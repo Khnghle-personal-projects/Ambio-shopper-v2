@@ -15,17 +15,16 @@ function CartItem(props) {
   return (
     <div>
       <div key={item.id} className="cart-item single-item">
-        <button
-          type="button"
+        <i
+          className="fas fa-times"
           onClick={() => dispatch(deleteItemThunk(userId, orderId, item.id))}
-        >
-          x
-        </button>
+        />
 
         <img src={item.pic} />
         <div className="item-name">{item.name}</div>
         <div>${item.price}</div>
         <div>{qty} item</div>
+
         <AddToCart
           text="Update"
           userId={userId}

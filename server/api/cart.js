@@ -71,7 +71,7 @@ router.delete('/:userId/:orderId/:productId', async (req, res, next) => {
 //Adds an item to the cart
 router.post('/:userId/:orderId/:productId', async (req, res, next) => {
   try {
-    const [item] = await Cart.findOrCreate({
+    const [item, isCreated] = await Cart.findOrCreate({
       where: {
         orderId: req.params.orderId,
         productId: req.params.productId
@@ -81,7 +81,7 @@ router.post('/:userId/:orderId/:productId', async (req, res, next) => {
     item.qty = Number(req.body.qty)
     await item.save()
 
-    res.send(item)
+    res.send([item, isCreated])
   } catch (error) {
     next(error)
   }

@@ -11,7 +11,7 @@ const DELETE_ITEM = 'DELETE_ITEM'
  */
 
 const getCart = cart => ({type: GET_CART, cart})
-const addItem = () => ({type: ADD_ITEM})
+const addItem = (item, isCreated) => ({type: ADD_ITEM, isCreated, item})
 const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 
 /**
@@ -31,8 +31,12 @@ export const fetchCart = userId => {
 export const updateCart = (userId, orderId, productId, qty) => {
   return async function(dispatch) {
     try {
-      await axios.post(`/api/cart/${userId}/${orderId}/${productId}`, {qty})
-      dispatch(addItem())
+      const {data} = await axios.post(
+        `/api/cart/${userId}/${orderId}/${productId}`,
+        {qty}
+      )
+      const [item, isCreated] = data
+      dispatch(addItem(item, isCreated))
     } catch (error) {
       console.log(error)
     }

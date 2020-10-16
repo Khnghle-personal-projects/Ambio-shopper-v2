@@ -83,6 +83,7 @@ class DisplayInfo extends React.Component {
               <img src={curr.pic} className="image-display" />
               <div className="item-name">{curr.name}</div>
               <div>Price: ${curr.price}</div>
+
               <AddToCartForm
                 itemId={curr.id}
                 orderId={this.props.orderId}
