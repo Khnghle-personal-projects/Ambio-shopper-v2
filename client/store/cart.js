@@ -10,8 +10,13 @@ const DELETE_ITEM = 'DELETE_ITEM'
  * ACTION CREATORS
  */
 
-const getCart = cart => ({type: GET_CART, cart})
-const addItem = (item, isCreated) => ({type: ADD_ITEM, isCreated, item})
+export const getCart = cart => ({type: GET_CART, cart})
+const addItem = (item, isCreated, productId) => ({
+  type: ADD_ITEM,
+  isCreated,
+  item,
+  productId
+})
 const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 
 /**
@@ -36,7 +41,7 @@ export const updateCart = (userId, orderId, productId, qty) => {
         {qty}
       )
       const [item, isCreated] = data
-      dispatch(addItem(item, isCreated))
+      dispatch(addItem(item, isCreated, productId))
     } catch (error) {
       console.log(error)
     }
@@ -63,7 +68,13 @@ export default function(state = initialState, action) {
     case GET_CART:
       return action.cart
     case ADD_ITEM:
-      return [...state]
+      if (action.isCreated) return [...state, action.item]
+      else
+        return state.map(item => {
+          console.log('searching...', item.cart.productId, action.productId)
+          if (item.cart.productId === action.productId) return action.item
+          else return item
+        })
     case DELETE_ITEM:
       return state.filter(item => item.id !== action.itemId)
     default:

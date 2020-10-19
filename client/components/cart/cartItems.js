@@ -1,16 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useDispatch} from 'react-redux'
 import {deleteItemThunk} from '../../store/cart'
 import AddToCart from '../products/addToCart'
 
 function CartItem(props) {
   const {item, userId, orderId} = props
-  const [qty, setQty] = useState(item.cart.qty)
   const dispatch = useDispatch()
-
-  function changeQty(newQty) {
-    setQty(newQty)
-  }
 
   return (
     <div>
@@ -23,14 +18,13 @@ function CartItem(props) {
         <img src={item.pic} />
         <div className="item-name">{item.name}</div>
         <div>${item.price}</div>
-        <div>{qty} item</div>
+        <div>{console.log('inside div', item)} item</div>
 
         <AddToCart
           text="Update"
           userId={userId}
           orderId={orderId}
           itemId={item.id}
-          changeQty={changeQty}
         />
       </div>
     </div>

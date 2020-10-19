@@ -81,6 +81,8 @@ router.post('/:userId/:orderId/:productId', async (req, res, next) => {
     item.qty = Number(req.body.qty)
     await item.save()
 
+    console.log(item)
+
     res.send([item, isCreated])
   } catch (error) {
     next(error)

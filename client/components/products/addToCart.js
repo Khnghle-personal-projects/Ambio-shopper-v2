@@ -21,8 +21,6 @@ class AddToCartForm extends React.Component {
     const {itemId, orderId, userId} = this.props
     const qty = this.state.qty
     this.props.addItem(userId, orderId, itemId, qty)
-
-    if (this.props.changeQty) this.props.changeQty(this.state.qty)
   }
 
   render() {
