@@ -11,12 +11,12 @@ const DELETE_ITEM = 'DELETE_ITEM'
  */
 
 export const getCart = cart => ({type: GET_CART, cart})
-const addItem = (item, isCreated, productId) => ({
+
+const addItem = cart => ({
   type: ADD_ITEM,
-  isCreated,
-  item,
-  productId
+  cart
 })
+
 const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 
 /**
@@ -36,12 +36,10 @@ export const fetchCart = userId => {
 export const updateCart = (userId, orderId, productId, qty) => {
   return async function(dispatch) {
     try {
-      const {data} = await axios.post(
-        `/api/cart/${userId}/${orderId}/${productId}`,
-        {qty}
-      )
-      const [item, isCreated] = data
-      dispatch(addItem(item, isCreated, productId))
+      await axios.post(`/api/cart/${userId}/${orderId}/${productId}`, {qty})
+
+      const {data} = await axios.get(`/api/cart/${userId}`)
+      dispatch(addItem(data.products))
     } catch (error) {
       console.log(error)
     }
@@ -68,13 +66,7 @@ export default function(state = initialState, action) {
     case GET_CART:
       return action.cart
     case ADD_ITEM:
-      if (action.isCreated) return [...state, action.item]
-      else
-        return state.map(item => {
-          console.log('searching...', item.cart.productId, action.productId)
-          if (item.cart.productId === action.productId) return action.item
-          else return item
-        })
+      return action.cart
     case DELETE_ITEM:
       return state.filter(item => item.id !== action.itemId)
     default:

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateCart} from '../../store/cart'
+import {fetchCart, updateCart} from '../../store/cart'
 
 class AddToCartForm extends React.Component {
   constructor() {
@@ -16,11 +16,12 @@ class AddToCartForm extends React.Component {
     this.setState({[evt.target.name]: evt.target.value})
   }
 
-  onSubmit(evt) {
+  async onSubmit(evt) {
     evt.preventDefault()
     const {itemId, orderId, userId} = this.props
     const qty = this.state.qty
-    this.props.addItem(userId, orderId, itemId, qty)
+    await this.props.addItem(userId, orderId, itemId, qty)
+    await this.props.grabCart(userId)
   }
 
   render() {
@@ -46,7 +47,8 @@ class AddToCartForm extends React.Component {
 function mapDispatch(dispatch) {
   return {
     addItem: (userId, orderId, productId, qty) =>
-      dispatch(updateCart(userId, orderId, productId, qty))
+      dispatch(updateCart(userId, orderId, productId, qty)),
+    grabCart: userId => dispatch(fetchCart(userId))
   }
 }
 

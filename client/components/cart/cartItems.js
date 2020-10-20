@@ -18,7 +18,7 @@ function CartItem(props) {
         <img src={item.pic} />
         <div className="item-name">{item.name}</div>
         <div>${item.price}</div>
-        <div>{console.log('inside div', item)} item</div>
+        <div>{item.cart.qty} item</div>
 
         <AddToCart
           text="Update"
