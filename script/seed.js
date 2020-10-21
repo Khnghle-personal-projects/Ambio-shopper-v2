@@ -1,18 +1,45 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product, Cart} = require('../server/db/models')
+const amibos = require('./seed.products')
+const orders = require('./seed.orders')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+  //Add users
+  const [user1, user2] = await Promise.all([
+    User.create({email: 'test@email.com', password: '123'}),
+    User.create({email: 'test2@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  //Add product
+  const [product1, product2, product3] = await Promise.all(
+    amibos.map(curr => {
+      return Product.create(curr)
+    })
+  )
+
+  //Add orders
+  const [order1, order2] = await Promise.all(
+    orders.map(curr => {
+      if (curr.userId === 1) return user1.createOrder(curr)
+      else return user2.createOrder(curr)
+    })
+  )
+
+  //Adding a product to an order
+  await order1.addProduct(product1)
+  await order1.addProduct(product2)
+
+  await order2.addProduct(product1)
+  await order2.addProduct(product2)
+  await order2.addProduct(product3)
+
+  await Cart.create({qty: 5, productId: 1, orderId: 3})
+
   console.log(`seeded successfully`)
 }
 

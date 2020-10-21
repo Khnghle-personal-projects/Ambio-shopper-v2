@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Comic Sans MS';
 }
 
 a {
@@ -19,3 +19,79 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.image-display {
+  width: 10em;
+  height: 10em;
+}
+
+.item-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.single-item {
+  margin: 1em;
+  padding: 0em 0em 1em 0em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.single-item:hover {
+  background-color: lightblue;
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+.page-numbers {
+  position: fixed;
+  bottom: 0;
+}
+
+.search-bar {
+  position: absolute;
+}
+
+.center {
+  left: 50%;
+  transform: translate(-50%);
+}
+
+h1 {
+  display: absolute;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-display {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cart-item img {
+  width: 10em;
+  height: 10em;
+}
+
+.selected {
+  color: black;
+  font-weight: bold;
+}
+
+.small_input {
+  width: 5em;
+}
+
+/* button {
+  border-radius: 9em;
+  color: black;
+  text-shadow: .7px .7px gray;
+  background-color: rgb(243, 224, 197);
+} */
