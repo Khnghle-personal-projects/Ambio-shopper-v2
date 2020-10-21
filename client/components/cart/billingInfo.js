@@ -2,19 +2,31 @@ import React from 'react'
 
 function BillingInfo(props) {
   return (
-    <form>
+    <form className="col-50">
       <h3>Billing Information</h3>
-      <label> First Name </label>
-      <input />
-      <label> Last Name </label>
+
+      <label> Full Name </label>
       <input />
       <label> Address </label>
       <input />
       <label> City </label>
       <input />
-      <label> Zip Code </label>
-      <input />
+
+      <div className="row">
+        <div className="col-50">
+          <label> State </label>
+          <input className="small_input" />
+        </div>
+
+        <div className="col-50">
+          <label> Zip Code </label>
+          <input className="small_input" />
+        </div>
+      </div>
+
       <label> Phone Number </label>
+      <input />
+      <label> Email </label>
       <input />
     </form>
   )

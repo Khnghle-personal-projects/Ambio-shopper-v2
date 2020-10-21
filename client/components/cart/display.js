@@ -31,28 +31,33 @@ class CartInfo extends React.Component {
   }
 
   render() {
-    console.log('what am I?', this.props.cart)
-
     const cartDisplay = this.props.cart || []
 
     return (
       <div className="cart-display">
-        <div>
-          <BillingInfo />
-          <PaymentInfo />
+        <div className="col-50">
+          <div className="container">
+            <div className="row">
+              <BillingInfo />
+              <PaymentInfo />
+            </div>
+          </div>
         </div>
-        {cartDisplay.map(item => (
-          <CartItem
-            key={item.id}
-            item={item}
-            orderId={this.props.orderId}
-            userId={this.props.userId}
-          />
-        ))}
 
-        <div>Cost: {this.state.sum}</div>
-        <div>Tax: {this.state.tax}</div>
-        <div>Total: {this.state.total}</div>
+        <div className="col-50">
+          {cartDisplay.map(item => (
+            <CartItem
+              key={item.id}
+              item={item}
+              orderId={this.props.orderId}
+              userId={this.props.userId}
+            />
+          ))}
+
+          <div>Cost: {this.state.sum}</div>
+          <div>Tax: {this.state.tax}</div>
+          <div>Total: {this.state.total}</div>
+        </div>
       </div>
     )
   }
