@@ -35,7 +35,6 @@ class CartInfo extends React.Component {
 
     return (
       <div className="cart-display">
-        Hi All - This is a test
         <div className="col-50">
           <div className="container">
             <div className="row">
@@ -57,6 +56,7 @@ class CartInfo extends React.Component {
           <div>Cost: {this.state.sum}</div>
           <div>Tax: {this.state.tax}</div>
           <div>Total: {this.state.total}</div>
+          <div>Test Test Test</div>
         </div>
       </div>
     )
