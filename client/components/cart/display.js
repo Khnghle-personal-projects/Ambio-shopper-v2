@@ -35,6 +35,7 @@ class CartInfo extends React.Component {
 
     return (
       <div className="cart-display">
+        Hi All - This is a test
         <div className="col-50">
           <div className="container">
             <div className="row">
@@ -43,7 +44,6 @@ class CartInfo extends React.Component {
             </div>
           </div>
         </div>
-
         <div className="col-50">
           {cartDisplay.map(item => (
             <CartItem
