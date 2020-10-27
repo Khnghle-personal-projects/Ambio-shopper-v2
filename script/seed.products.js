@@ -482,10 +482,10 @@ const amibos = [
 ]
 
 function addMore(n) {
-  for (let i = 1; i <= n; i++) {
+  for (let i = 0; i < n; i++) {
     amibos.push({
       name: `test-product#${i}`,
-      price: n * i
+      price: n
     })
   }
 }
