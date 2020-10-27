@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CartItem from './cartItems'
 import BillingInfo from './billingInfo'
 import PaymentInfo from './paymentInfo'
+import Checkout from './stripecheckout'
 
 class CartInfo extends React.Component {
   constructor() {
@@ -38,8 +39,9 @@ class CartInfo extends React.Component {
         <div className="col-50">
           <div className="container">
             <div className="row">
-              <BillingInfo />
-              <PaymentInfo />
+              {/* <BillingInfo />
+              <PaymentInfo /> */}
+              <Checkout />
             </div>
           </div>
         </div>
