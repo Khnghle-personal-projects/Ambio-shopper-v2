@@ -58,7 +58,6 @@ class CartInfo extends React.Component {
           <div>Cost: {this.state.sum}</div>
           <div>Tax: {this.state.tax}</div>
           <div>Total: {this.state.total}</div>
-          <div>Test Test Test</div>
         </div>
       </div>
     )
